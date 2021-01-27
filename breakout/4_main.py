@@ -1,7 +1,7 @@
 api_client = k8s_api_client(
     endpoint=cluster_data['endpoint'],
     token=my_token['status']['token'],
-    cafile=my_cafile
+    cafile=my_cafile.name
 )
 
 api_client.list_namespace()

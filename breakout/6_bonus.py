@@ -18,12 +18,12 @@ def create_update_configmap(
     except kubernetes.client.exceptions.ApiException as e:
         if e.status == 409:
             # 409 conflict = it exists... try to replace instead
-            res = k8s_client.replace_namespaced_config_map('aws-auth', namespace, configmap)
+            res = k8s_client.replace_namespaced_config_map(configmap.metadata['name'], namespace, configmap)
         else:
             raise e
     return res
 
 
-create_update_configmap(api_client, namespace=default, body=my_configmap)
+create_update_configmap(api_client, namespace='default', configmap=my_configmap)
 
 api_client.delete_namespaced_config_map(namespace='default', name='my-configmap')
