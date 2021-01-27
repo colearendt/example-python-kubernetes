@@ -2,6 +2,7 @@ import boto3
 import tempfile
 import base64
 
+
 def _write_cafile(data: str) -> tempfile.NamedTemporaryFile:
     # protect yourself from automatic deletion
     cafile = tempfile.NamedTemporaryFile(delete=False)

@@ -1,5 +1,6 @@
 import kubernetes
 
+
 def k8s_api_client(endpoint: str, token: str, cafile: str) -> kubernetes.client.CoreV1Api:
     kconfig = kubernetes.config.kube_config.Configuration(
         host=endpoint,
