@@ -34,6 +34,7 @@ import boto3
 import tempfile
 import base64
 
+
 def _write_cafile(data: str) -> tempfile.NamedTemporaryFile:
     # protect yourself from automatic deletion
     cafile = tempfile.NamedTemporaryFile(delete=False)
@@ -42,12 +43,11 @@ def _write_cafile(data: str) -> tempfile.NamedTemporaryFile:
     cadata = base64.b64decode(cadata_b64)
     cafile.write(cadata)
     cafile.flush()
-
     return cafile
 
 
 bclient = boto3.client('eks')
-cluster_data = bclient.describe_cluster(name=cluster_name)
+cluster_data = bclient.describe_cluster(name=cluster_name)['cluster']
 my_cafile = _write_cafile(cluster_data['certificateAuthority']['data'])
 
 
@@ -56,8 +56,8 @@ my_cafile = _write_cafile(cluster_data['certificateAuthority']['data'])
 # ------------------------------------------------------
 api_client = k8s_api_client(
     endpoint=cluster_data['endpoint'],
-    token=my_token['data'],
-    cafile=my_cafile
+    token=my_token['status']['token'],
+    cafile=my_cafile.name
 )
 
 api_client.list_namespace()
