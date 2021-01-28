@@ -10,4 +10,4 @@ api_client.create_namespaced_config_map(namespace='default', body=my_configmap)
 # NOTE: to update a configmap, you need to
 # use k8s_client.replace_namespaced_config_map
 #
-# If it already exists, you get a 409 conflict
+# If it already exists, create will give a 409 conflict
