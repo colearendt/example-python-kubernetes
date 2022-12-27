@@ -1,0 +1,5 @@
+git+https://github.com/marek-knappe/eks-token@upgrade-aws-version
+awscli
+boto3
+botocore
+kubernetes
